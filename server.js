@@ -10,6 +10,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/exercise.html")
 })
 
-app.post("/workout", (req, res) => {
+app.post("/exercise", (req, res) => {
   console.log("It works!")
 })
