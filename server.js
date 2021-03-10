@@ -7,5 +7,5 @@ app.listen(3000, function() {
 })
 // Use sendFile method to return index.html file
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html")
+  res.sendFile(__dirname + "/public/index.html")
 })
