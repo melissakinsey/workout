@@ -1,16 +1,16 @@
 // Require Express
 const express = require("express");
+// Create Express server
 const app = express();
-// Set up server
-app.listen(3000, function() {
-  console.log("I'm a server listening on localhost 3000")
-})
-// Use sendFile method to return exercise.html file
-app.get("/", (req, res) =>
-{
-  res.sendFile("/Users/MelissaKinsey/developer/workout/public" + "/exercise.html")
-})
-
-app.post("/Users/MelissaKinsey/developer/workout/public" + "/exercise.html", (req, res) => {
-  console.log("It works!")
-})
+// Set up initial port 
+PORT = process.env.PORT || 8080;
+// Set up Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Require HTML and API routes
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
+// Set up listener on port
+app.listen(PORT, function() {
+  console.log("App listening on PORT: " + PORT);
+});
