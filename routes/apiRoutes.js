@@ -1,11 +1,10 @@
 // Connect routes to data sources
-const createWorkout = require("../data/workouts");
-var getWorkoutsInRange = require("../data/api/workouts/range"); 
+
 
 // Handle API GET requests
 module.exports = function (app)
 {
-    app.get("/api/data/workouts", function (req, res)
+    app.get("/api/workouts", function (req, res)
     {
         res.json(createWorkout);
     });

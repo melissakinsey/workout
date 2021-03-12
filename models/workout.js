@@ -1,84 +1,59 @@
-async function initWorkout() {
-  const lastWorkout = await API.getLastWorkout();
-  console.log("Last workout:", lastWorkout);
-  if (lastWorkout) {
-    document
-      .querySelector("a[href='/exercise?']")
-      .setAttribute("href", `/exercise?id=${lastWorkout._id}`);
+// Mongoose schema goes here
+// * As a user, I want to be able to view create and track daily workouts. I want to be able to log multiple exercises in a workout on a given day. I should also be able to track the name, type, weight, sets, reps, and duration of exercise (also distance). If the exercise is a cardio exercise, I should be able to track my distance traveled.
 
-    const workoutSummary = {
-      date: formatDate(lastWorkout.day),
-      totalDuration: lastWorkout.totalDuration,
-      numExercises: lastWorkout.exercises.length,
-      ...tallyExercises(lastWorkout.exercises)
-    };
+// Recipe should have name, type, weight, sets, reps, and duration of exercise (also distance)
 
-    renderWorkoutSummary(workoutSummary);
-  } else {
-    renderNoWorkoutText()
-  }
-}
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-function tallyExercises(exercises) {
-  const tallied = exercises.reduce((acc, curr) => {
-    if (curr.type === "resistance") {
-      acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
-      acc.totalSets = (acc.totalSets || 0) + curr.sets;
-      acc.totalReps = (acc.totalReps || 0) + curr.reps;
-    } else if (curr.type === "cardio") {
-      acc.totalDistance = (acc.totalDistance || 0) + curr.distance;
-    }
-    return acc;
-  }, {});
-  return tallied;
-}
+const WorkoutSchema = new Schema({
+    name: {
+        type: String,
+        trim: true,
+        required: "Name is Required",
+        trim: true
+    },
+    
+    type: {
+        type: String,
+        required: "Type is required",
+        trim: true
+    },
+    
+    weight: {
+        type: Number,
+    },
+    
+    sets: {
+        type: Number,
+    },
+    
+    reps: {
+        type: Number,
+    },
+    duration: {
+        type: Number,
+    },
 
-function formatDate(date) {
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  };
+    distance: {
+        type: Number,
+    }, 
+    
+    boolean: Boolean,
+    
+    array: Array,
+    
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    
+    // longstring: {
+    //     type: String,
+    //     validate: [({ length }) => length >= 6, "Longstring should be longer."]
+    // }
+});
 
-  return new Date(date).toLocaleDateString(options);
-}
+const Example = mongoose.model("Example", ExampleSchema);
 
-function renderWorkoutSummary(summary) {
-  const container = document.querySelector(".workout-stats");
-
-  const workoutKeyMap = {
-    date: "Date",
-    totalDuration: "Total Workout Duration",
-    numExercises: "Exercises Performed",
-    totalWeight: "Total Weight Lifted",
-    totalSets: "Total Sets Performed",
-    totalReps: "Total Reps Performed",
-    totalDistance: "Total Distance Covered"
-  };
-
-  Object.keys(summary).forEach(key => {
-    const p = document.createElement("p");
-    const strong = document.createElement("strong");
-
-    strong.textContent = workoutKeyMap[key];
-    const textNode = document.createTextNode(`: ${summary[key]}`);
-
-    p.appendChild(strong);
-    p.appendChild(textNode);
-
-    container.appendChild(p);
-  });
-}
-
-function renderNoWorkoutText() {
-  const container = document.querySelector(".workout-stats");
-  const p = document.createElement("p");
-  const strong = document.createElement("strong");
-  strong.textContent = "You have not created a workout yet!"
-
-  p.appendChild(strong);
-  container.appendChild(p);
-}
-
-initWorkout();
+module.exports = Example;
