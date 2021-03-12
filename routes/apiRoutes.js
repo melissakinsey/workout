@@ -1,29 +1,25 @@
 // Connect routes to data sources
 
-
 // Handle API GET requests
 module.exports = function (app)
 {
     app.get("/api/workouts", function (req, res)
     {
-        res.json(createWorkout);
+        res.json(getLastWorkout);
     });
     
-    app.get("/api/", function (req, res)
+    app.get("/api/workouts/range", function (req, res)
     {
-        res.json(waitListData);
+        res.json(getWorkoutsInRange);
     });
-    app.post("/api/tables", function (req, res)
+    // Handle API PUT requests
+    app.put("/api/workouts" + id, function (req, res)
     {
-        if (tableData.length < 5)
-        {
-            tableData.push(req.body);
-            res.json(true);
-        }
-        else
-        {
-            waitListData.push(req.body);
-            res.json(false);
-        }
+        res.json(addExercise);
     });
+    // Handle API POST requests
+    app.post("/api/workouts/range", function (req, res)
+    {
+        res.json(createWorkout);
+   });
 }
