@@ -9,6 +9,15 @@ PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/WorkoutDB',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 // Require HTML and API routes
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
