@@ -1,9 +1,13 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
-mongoose.connect("mongodb+srv://mjkinsey:lNkY5NgxHtsKsgzR@cluster0.17h1j.mongodb.net/WorkoutDB?retryWrites=true&w=majority", {
+
+
+mongoose.connect("mongodb+srv://mjkinsey:lNkY5NgxHtsKsgzR@cluster0.wo9cl.mongodb.net/WorkoutDB?retryWrites=true&w=majority", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 let workoutSeed = [
