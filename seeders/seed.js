@@ -1,14 +1,15 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
-
-
-mongoose.connect("mongodb+srv://mjkinsey:lNkY5NgxHtsKsgzR@cluster0.wo9cl.mongodb.net/WorkoutDB?retryWrites=true&w=majority", {
-  useNewUrlParser: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/workout',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 
 let workoutSeed = [
   {

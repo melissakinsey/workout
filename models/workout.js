@@ -8,10 +8,9 @@ const Schema = mongoose.Schema;
 
 const WorkoutSchema = new Schema(
     {
-        date: {
+        day: {
             type: Date,
-            default: Date.now,
-            required: true,
+            default: () => Date.now
         },
         exercises: [
             {
