@@ -10,7 +10,7 @@ const WorkoutSchema = new Schema(
     {
         day: {
             type: Date,
-            default: () => Date.now
+            default: () => new Date(),
         },
         exercises: [
             {
@@ -18,12 +18,11 @@ const WorkoutSchema = new Schema(
                     type: String,
                     trim: true,
                     required: "Name is required",
-                    trim: true
                 },
                 type: {
                     type: String,
                     required: "Type is required",
-                    trim: true
+                    trim: true,
                 },
                 weight: {
                     type: Number,

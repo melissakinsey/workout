@@ -9,6 +9,7 @@ module.exports = app => {
         db.Workout.create({})
             .then(createWorkout =>
             {
+                console.log(createWorkout)
                 res.json(createWorkout);
             })
             .catch(err =>
