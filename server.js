@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 // Create Express server
 const app = express();
 // Set up initial port 
-PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 // Set up Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
